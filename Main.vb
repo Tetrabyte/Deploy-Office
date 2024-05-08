@@ -9,9 +9,9 @@ Public Class Main
     Public Const SetupFilename As String = "setup.exe"
     Public Const ConfigFilename As String = "configuration.xml"
     Public Const SetupURL As String = "https://officecdn.microsoft.com/pr/wsus/setup.exe"
-    Public Const DefaultYear As String = "2021"
-    Public Const DefaultEdition As String = "Professional Plus - Volume"
-    Public CountdownValue As Integer = 30
+    Public Const DefaultYear As String = "Microsoft 365"
+    Public Const DefaultEdition As String = "Microsoft 365"
+    Public CountdownValue As Integer = 60
     Public ProductID As New Dictionary(Of String, String)
     Public TempPath As String = Path.GetTempPath
     Public SetupPath As String
@@ -30,7 +30,6 @@ Public Class Main
         ComboBox_Year.SelectedItem = DefaultYear
 
         'Configure year drop-down
-        ComboBox_Year.Items.Add("")
         ComboBox_Year.Items.Add("2019")
         ComboBox_Year.Items.Add("2021")
         ComboBox_Year.Items.Add("2024")
@@ -38,22 +37,11 @@ Public Class Main
 
         ' Initialize the product ID dictionary with key-value pairs
         ProductID = New Dictionary(Of String, String) From {
-            {"Microsoft 365 Family/Personal", "O365HomePremRetail"},
-            {"Microsoft 365 Small Business", "O365SmallBusPremRetail"},
-            {"Microsoft 365 Education", "O365EduCloudRetail"},
-            {"Microsoft 365 Enterprise", "O365ProPlusRetail"},
-            {"Home & Business", "HomeBusiness{YYYY}Retail"},
-            {"Home & Student", "HomeStudent{YYYY}Retail"},
-            {"Personal", "Personal{YYYY}Retail"},
-            {"Professional", "Professional{YYYY}Retail"},
+            {"Microsoft 365", "O365BusinessRetail"},
             {"Professional Plus", "ProPlus{YYYY}Retail"},
             {"Professional Plus - Volume", "ProPlus{YYYY}Volume"},
             {"Standard", "Standard{YYYY}Retail"},
             {"Standard - Volume", "Standard{YYYY}Volume"},
-            {"Visio Standard", "VisioStd{YYYY}Retail"},
-            {"Visio Standard - Volume", "VisioStd{YYYY}Volume"},
-            {"Visio Professional", "VisioPro{YYYY}Retail"},
-            {"Visio Professional - Volume", "VisioPro{YYYY}Volume"},
             {"Project Standard", "ProjectStd{YYYY}Retail"},
             {"Project Standard - Volume", "ProjectStd{YYYY}Volume"},
             {"Project Professional", "ProjectPro{YYYY}Retail"},
@@ -427,46 +415,11 @@ Public Class Main
         End If
     End Sub
 
-    Private Async Function CheckForUpdates() As Task(Of String)
-        Dim latestVersion As String = Nothing
-
-        Try
-            ' Check for updates
-            Dim updater As New GitHubRepoUpdater("asheroto", "Deploy-Office")
-            latestVersion = Await updater.CheckForLatestReleaseAsync()
-            Debug.WriteLine($"Latest release: {latestVersion}")
-        Catch ex As Exception
-            Debug.WriteLine("[CheckForUpdates] " & ex.Message)
-        End Try
-
-        Return latestVersion
-    End Function
-
-    Private Async Sub LinkLabel_CheckForUpdates_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel_CheckForUpdates.LinkClicked
-        LinkLabel_CheckForUpdates.Text = "Checking..."
-
-        ' Call CheckForUpdates asynchronously
-        Dim latestVersion As String = Await CheckForUpdates()
-
-        LinkLabel_CheckForUpdates.Text = "Check for Updates"
-
-        If latestVersion IsNot Nothing AndAlso New Version(latestVersion) > New Version(Application.ProductVersion) Then
-            Dim result As DialogResult = MessageBox.Show($"A new version of {ApplicationName} is available. Would you like to download it now?", ApplicationName, MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-            If result = DialogResult.Yes Then
-                ' Open the releases page in the default browser
-                TryStartProcess("https://github.com/asheroto/Deploy-Office/releases")
-            End If
-        Else
-            MessageBox.Show($"No updates found. You are running the latest version of {ApplicationName}.", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-    End Sub
-
-    Private Sub LinkLabel_Repo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel_Repo.LinkClicked
-        ' Open repo homepage in the default browser
-        TryStartProcess("https://github.com/asheroto/Deploy-Office")
-    End Sub
-
     Private Sub Main_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         End
+    End Sub
+
+    Private Sub MainLabel_Click()
+
     End Sub
 End Class

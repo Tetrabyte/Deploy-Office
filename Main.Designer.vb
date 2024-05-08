@@ -36,8 +36,6 @@ Partial Class Main
         Me.CheckBox_CreateDesktopShortcuts = New System.Windows.Forms.CheckBox()
         Me.CheckBox_ExcludeTeams = New System.Windows.Forms.CheckBox()
         Me.CheckBox_ExcludeOneDrive = New System.Windows.Forms.CheckBox()
-        Me.LinkLabel_CheckForUpdates = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel_Repo = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'Timer_Countdown
@@ -47,6 +45,7 @@ Partial Class Main
         '
         'MainLabel
         '
+        Me.MainLabel.BackColor = System.Drawing.Color.Transparent
         Me.MainLabel.Font = New System.Drawing.Font("Segoe UI Semibold", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MainLabel.Location = New System.Drawing.Point(12, 9)
         Me.MainLabel.Margin = New System.Windows.Forms.Padding(0)
@@ -55,11 +54,12 @@ Partial Class Main
         Me.MainLabel.TabIndex = 0
         Me.MainLabel.Text = "Starting Office Installation"
         Me.MainLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        AddHandler Me.MainLabel.Click, AddressOf Me.MainLabel_Click
         '
         'CountdownLabel
         '
         Me.CountdownLabel.Font = New System.Drawing.Font("Segoe UI Semibold", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CountdownLabel.Location = New System.Drawing.Point(278, 73)
+        Me.CountdownLabel.Location = New System.Drawing.Point(278, 60)
         Me.CountdownLabel.Margin = New System.Windows.Forms.Padding(0)
         Me.CountdownLabel.Name = "CountdownLabel"
         Me.CountdownLabel.Size = New System.Drawing.Size(194, 57)
@@ -69,12 +69,12 @@ Partial Class Main
         '
         'LogTextbox
         '
-        Me.LogTextbox.Location = New System.Drawing.Point(12, 194)
+        Me.LogTextbox.Location = New System.Drawing.Point(12, 179)
         Me.LogTextbox.Multiline = True
         Me.LogTextbox.Name = "LogTextbox"
         Me.LogTextbox.ReadOnly = True
         Me.LogTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.LogTextbox.Size = New System.Drawing.Size(460, 262)
+        Me.LogTextbox.Size = New System.Drawing.Size(460, 290)
         Me.LogTextbox.TabIndex = 2
         '
         'ComboBox_Edition
@@ -83,7 +83,7 @@ Partial Class Main
         Me.ComboBox_Edition.Enabled = False
         Me.ComboBox_Edition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox_Edition.FormattingEnabled = True
-        Me.ComboBox_Edition.Location = New System.Drawing.Point(63, 105)
+        Me.ComboBox_Edition.Location = New System.Drawing.Point(63, 92)
         Me.ComboBox_Edition.Name = "ComboBox_Edition"
         Me.ComboBox_Edition.Size = New System.Drawing.Size(212, 25)
         Me.ComboBox_Edition.TabIndex = 3
@@ -91,7 +91,7 @@ Partial Class Main
         'Button_Start
         '
         Me.Button_Start.Enabled = False
-        Me.Button_Start.Location = New System.Drawing.Point(12, 161)
+        Me.Button_Start.Location = New System.Drawing.Point(12, 146)
         Me.Button_Start.Name = "Button_Start"
         Me.Button_Start.Size = New System.Drawing.Size(460, 27)
         Me.Button_Start.TabIndex = 6
@@ -102,7 +102,7 @@ Partial Class Main
         '
         Me.ComboBox_Year.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox_Year.FormattingEnabled = True
-        Me.ComboBox_Year.Location = New System.Drawing.Point(63, 73)
+        Me.ComboBox_Year.Location = New System.Drawing.Point(63, 60)
         Me.ComboBox_Year.Name = "ComboBox_Year"
         Me.ComboBox_Year.Size = New System.Drawing.Size(120, 25)
         Me.ComboBox_Year.TabIndex = 8
@@ -110,7 +110,8 @@ Partial Class Main
         'Label_Year
         '
         Me.Label_Year.AutoSize = True
-        Me.Label_Year.Location = New System.Drawing.Point(12, 77)
+        Me.Label_Year.BackColor = System.Drawing.Color.Transparent
+        Me.Label_Year.Location = New System.Drawing.Point(12, 64)
         Me.Label_Year.Name = "Label_Year"
         Me.Label_Year.Size = New System.Drawing.Size(33, 17)
         Me.Label_Year.TabIndex = 9
@@ -119,7 +120,8 @@ Partial Class Main
         'Label_Edition
         '
         Me.Label_Edition.AutoSize = True
-        Me.Label_Edition.Location = New System.Drawing.Point(12, 108)
+        Me.Label_Edition.BackColor = System.Drawing.Color.Transparent
+        Me.Label_Edition.Location = New System.Drawing.Point(12, 95)
         Me.Label_Edition.Name = "Label_Edition"
         Me.Label_Edition.Size = New System.Drawing.Size(48, 17)
         Me.Label_Edition.TabIndex = 10
@@ -130,7 +132,7 @@ Partial Class Main
         Me.CheckBox_CreateDesktopShortcuts.AutoSize = True
         Me.CheckBox_CreateDesktopShortcuts.Checked = True
         Me.CheckBox_CreateDesktopShortcuts.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox_CreateDesktopShortcuts.Location = New System.Drawing.Point(14, 135)
+        Me.CheckBox_CreateDesktopShortcuts.Location = New System.Drawing.Point(14, 122)
         Me.CheckBox_CreateDesktopShortcuts.Name = "CheckBox_CreateDesktopShortcuts"
         Me.CheckBox_CreateDesktopShortcuts.Size = New System.Drawing.Size(175, 21)
         Me.CheckBox_CreateDesktopShortcuts.TabIndex = 11
@@ -140,7 +142,7 @@ Partial Class Main
         'CheckBox_ExcludeTeams
         '
         Me.CheckBox_ExcludeTeams.AutoSize = True
-        Me.CheckBox_ExcludeTeams.Location = New System.Drawing.Point(195, 135)
+        Me.CheckBox_ExcludeTeams.Location = New System.Drawing.Point(195, 122)
         Me.CheckBox_ExcludeTeams.Name = "CheckBox_ExcludeTeams"
         Me.CheckBox_ExcludeTeams.Size = New System.Drawing.Size(112, 21)
         Me.CheckBox_ExcludeTeams.TabIndex = 12
@@ -150,35 +152,12 @@ Partial Class Main
         'CheckBox_ExcludeOneDrive
         '
         Me.CheckBox_ExcludeOneDrive.AutoSize = True
-        Me.CheckBox_ExcludeOneDrive.Location = New System.Drawing.Point(313, 135)
+        Me.CheckBox_ExcludeOneDrive.Location = New System.Drawing.Point(313, 122)
         Me.CheckBox_ExcludeOneDrive.Name = "CheckBox_ExcludeOneDrive"
         Me.CheckBox_ExcludeOneDrive.Size = New System.Drawing.Size(129, 21)
         Me.CheckBox_ExcludeOneDrive.TabIndex = 13
         Me.CheckBox_ExcludeOneDrive.Text = "Exclude OneDrive"
         Me.CheckBox_ExcludeOneDrive.UseVisualStyleBackColor = True
-        '
-        'LinkLabel_CheckForUpdates
-        '
-        Me.LinkLabel_CheckForUpdates.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel_CheckForUpdates.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel_CheckForUpdates.Location = New System.Drawing.Point(370, 459)
-        Me.LinkLabel_CheckForUpdates.Name = "LinkLabel_CheckForUpdates"
-        Me.LinkLabel_CheckForUpdates.Size = New System.Drawing.Size(102, 13)
-        Me.LinkLabel_CheckForUpdates.TabIndex = 14
-        Me.LinkLabel_CheckForUpdates.TabStop = True
-        Me.LinkLabel_CheckForUpdates.Text = "Check for Updates"
-        Me.LinkLabel_CheckForUpdates.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'LinkLabel_Repo
-        '
-        Me.LinkLabel_Repo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel_Repo.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel_Repo.Location = New System.Drawing.Point(9, 459)
-        Me.LinkLabel_Repo.Name = "LinkLabel_Repo"
-        Me.LinkLabel_Repo.Size = New System.Drawing.Size(49, 13)
-        Me.LinkLabel_Repo.TabIndex = 15
-        Me.LinkLabel_Repo.TabStop = True
-        Me.LinkLabel_Repo.Text = "Repo"
         '
         'Main
         '
@@ -186,8 +165,6 @@ Partial Class Main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(484, 481)
-        Me.Controls.Add(Me.LinkLabel_Repo)
-        Me.Controls.Add(Me.LinkLabel_CheckForUpdates)
         Me.Controls.Add(Me.CheckBox_ExcludeOneDrive)
         Me.Controls.Add(Me.CheckBox_ExcludeTeams)
         Me.Controls.Add(Me.CheckBox_CreateDesktopShortcuts)
@@ -206,7 +183,7 @@ Partial Class Main
         Me.MaximizeBox = False
         Me.Name = "Main"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Deploy Office"
+        Me.Text = "Tetrabyte - Office Installer"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -224,6 +201,4 @@ Partial Class Main
     Friend WithEvents CheckBox_CreateDesktopShortcuts As CheckBox
     Friend WithEvents CheckBox_ExcludeTeams As CheckBox
     Friend WithEvents CheckBox_ExcludeOneDrive As CheckBox
-    Friend WithEvents LinkLabel_CheckForUpdates As LinkLabel
-    Friend WithEvents LinkLabel_Repo As LinkLabel
 End Class
